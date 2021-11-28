@@ -142,14 +142,6 @@
 			$("#logout .tooltip_app").html(`<div class="arrow"></div>${config.lang.buttons.logout}`);
 		});
 
-		function openRegisterPage() {
-			ipcRenderer.send("openExternalUrl", configuration.url.registerUrl);
-		}
-
-		function openRecoveryPage() {
-			ipcRenderer.send("openExternalUrl", configuration.url.recoveryPasswordUrl);
-		}
-
 		$(document).ready(() => {
 			ipcRenderer.send("getConfig");
 		});
