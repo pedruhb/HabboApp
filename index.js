@@ -1,17 +1,8 @@
 const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron')
 const path = require('path');
 const configuration = require("./configuration.json");
-const dataPath = app.getPath('userData');
-const { readFileSync, writeFile, existsSync, unlinkSync } = require('fs');
-const axios = require("axios");
-var qs = require('qs');
 let pluginName;
 let mainWindow;
-
-const webservice = axios.create({
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': configuration.app.userAgent },
-    httpsAgent: new require('https').Agent({ rejectUnauthorized: false })
-})
 
 if (configuration.discord.richPresenceEnabled) {
     const DiscordRPC = require('discord-rpc');
@@ -115,47 +106,13 @@ ipcMain.on("openExternalUrl", (e, link) => {
     require('electron').shell.openExternal(link);
 });
 
-ipcMain.on("saveLoginData", (e, data) => {
-    writeFile(path.join(dataPath, '/logindata.json'), JSON.stringify(data), (e) => {
-        if (e) {
-            throw e;
-        }
-    });
-});
-
-ipcMain.on("getLoginData", (e) => {
-    if (existsSync(path.join(dataPath, '/logindata.json'))) {
-        var data = JSON.parse(readFileSync(path.join(dataPath, '/logindata.json'), 'utf8'));
-        e.reply("setLoginData", data);
-    }
-});
-
 ipcMain.on("getConfig", (e) => {
     e.reply("setConfig", configuration);
 });
 
 ipcMain.on("logout", (e) => {
-    if (existsSync(path.join(dataPath, '/logindata.json'))) {
-        unlinkSync(path.join(dataPath, '/logindata.json'), (e) => {
-            if (e) {
-                throw e;
-            }
-        });
-    }
     mainWindow.webContents.session.clearCache();
     mainWindow.loadFile(path.join(__dirname, 'gui', 'index.html'));
-});
-
-ipcMain.on("login", async (e, username, password) => {
-    const formData = {
-        username: username,
-        password: password,
-        csrftoken: "",
-        remember_me: "false"
-    };
-    const login = await webservice.post(`${configuration.url.hotelUrl}/auth/login/request`, qs.stringify(formData));
-    const cookie = login.headers["set-cookie"][0];
-    e.reply("loginCallback", cookie, login.data, login.status);
 });
 
 ipcMain.on('clearcache', async () => {

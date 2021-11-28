@@ -3,13 +3,10 @@
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
     },
     "hotel": {
-        "hotelName": "Hubbiz"
+        "hotelName": "Habbo"
     },
     "url": {
-        "hotelUrl": "https://hubbiz.biz",
-        "registerUrl": "https://hubbiz.biz/registration",
-        "recoveryPasswordUrl": "https://hubbiz.biz/password/claim",
-        "clientUrl": "https://hubbiz.biz/client"
+        "hotelUrl": "https://www.habbo.com.br/"
     },
     "discord": {
         "inviteUrl": "https://discord.gg/PqwfftuawS",
@@ -23,17 +20,8 @@
         "richButtonTextInvite": "Hubbiz Community"
     },
     "lang": {
-        "login": "Login",
-        "forgot_password": "Forgot Password? Click Here!",
-        "create_account": "Not have account? Click Here!",
-        "validate_username": "Username is required!",
-        "validade_password": "Password is required!",
-        "placeholder_username": "Username",
-        "placeholder_password": "Password",
         "snackbar": {
-            "api_error": "Error communicating with API.",
-            "dimiss": "DIMISS",
-            "success": "Login successful!"
+            "dimiss": "DIMISS"
         },
         "buttons": {
             "fullscreen": "Fullscreen",
