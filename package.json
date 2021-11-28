@@ -1,0 +1,116 @@
+{
+  "name": "habboapp",
+  "version": "1.0.0",
+  "description": "Habbo Electron App",
+  "homepage": "https://github.com/pedruhb",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "publish": "electron-builder --win -p always",
+    "build": "electron-builder --win"
+  },
+  "keywords": [
+    "habbo",
+    "app",
+    "electron",
+    "app",
+    "cosmic",
+    "app"
+  ],
+  "author": "PHB - https://phb.services - https://github.com/pedruhb",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "11.1.0",
+    "electron-builder": "22.9.1"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "discord-rpc": "^4.0.1",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "jquery": "^3.2.1",
+    "jQuery": "^1.7.4",
+    "path": "^0.12.7",
+    "qs": "^6.10.1"
+  },
+  "build": {
+    "appId": "phb.services.habboapp",
+    "extraResources": [
+      "./flash/**"
+    ],
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "pedruhb",
+        "repo": "HabboApp",
+        "releaseType": "release",
+        "vPrefixedTagName": true,
+        "publishAutoUpdate": true
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "uninstallDisplayName": "HabboApp",
+      "oneClick": true,
+      "perMachine": false,
+      "artifactName": "HabboApp-${version}.${ext}"
+    },
+    "mac": {
+      "icon": "icon.png",
+      "category": "public.games.social-networking",
+      "darkModeSupport": true,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements-mac.plist",
+      "entitlementsInherit": "build/entitlements-mac.plist",
+      "target": [
+        "dmg"
+      ]
+    },
+    "dmg": {
+      "iconSize": 160,
+      "contents": [
+        {
+          "x": 180,
+          "y": 170
+        },
+        {
+          "x": 480,
+          "y": 170,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64",
+            "ia32",
+            "armv7l",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "Network;Chat"
+    }
+  }
+}

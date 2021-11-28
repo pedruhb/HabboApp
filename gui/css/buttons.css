@@ -1,0 +1,118 @@
+.buttons {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.buttons {
+    z-index: 99999;
+    margin-top: 20px;
+    position: fixed;
+    background: rgba(58, 56, 50, 0.9);
+    right: 0;
+    bottom: 100px;
+    width: 50px;
+    max-width: 50px;
+    transition: .1s;
+}
+
+#close {
+    position: absolute;
+    height: 100%;
+    border-radius: 8px 0 0 8px;
+    width: 14px;
+    background: #3a3832;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: -14px;
+    cursor: pointer;
+}
+
+#close #close-button {
+    position: absolute;
+    height: 10px;
+    width: 7px;
+    background: url('../images/close.png') -18px 0;
+}
+
+.buttons .button {
+    position: relative;
+    z-index: 9999;
+    height: 36px;
+    left: 8px;
+    margin-top: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 4px;
+    width: 36px;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.buttons .button:last-child {
+    margin-bottom: 6px;
+}
+
+.buttons .button:hover .tooltip_app {
+    display: block;
+}
+
+.buttons .button .tooltip_app {
+    position: absolute;
+    background: white;
+    display: none;
+    padding: 8px 10px;
+    text-align: center;
+    right: 60px;
+    width: 100px;
+    box-shadow: 0 0 6px #0000006e;
+    border-radius: 10px;
+}
+
+.buttons .button .tooltip_app .arrow {
+    width: 0;
+    right: -6px;
+    top: 12px;
+    height: 0;
+    position: absolute;
+    border-style: solid;
+    border-width: 5px 0 5px 6px;
+    border-color: transparent transparent transparent #ffffff;
+}
+
+.buttons .button .icon {
+    height: 25px;
+    width: 25px;
+}
+
+.buttons .button .out {
+    background: url('../images/out.png');
+}
+
+.buttons .button .screen {
+    background: url('../images/screen.png');
+}
+
+.buttons .button .reload {
+    background: url('../images/reload.png');
+}
+
+.buttons .button .cache {
+    background: url('../images/cache.png');
+}
+
+.buttons .button .in {
+    background: url('../images/in.png');
+}
+
+.buttons .button .reset {
+    background: url('../images/reset.png');
+}
+
+.buttons .button .logout {
+    background: url('../images/logout.png');
+}
+
+.buttons .button:hover {
+    background: #00000073;
+}

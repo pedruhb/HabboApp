@@ -1,0 +1,48 @@
+{
+    "app": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+    },
+    "hotel": {
+        "hotelName": "Hubbiz"
+    },
+    "url": {
+        "hotelUrl": "https://hubbiz.biz",
+        "registerUrl": "https://hubbiz.biz/registration",
+        "recoveryPasswordUrl": "https://hubbiz.biz/password/claim",
+        "clientUrl": "https://hubbiz.biz/client"
+    },
+    "discord": {
+        "inviteUrl": "https://discord.gg/PqwfftuawS",
+        "richPresenceEnabled": true,
+        "richPresenceId": "859338546752782376",
+        "richPresenceDetails": "title",
+        "richPresenceState": "desc",
+        "richPresenceLargeImg": "principal",
+        "richPresenceSmallImg": "fantasminha",
+        "richButtonTextAccess": "Access Hubbiz",
+        "richButtonTextInvite": "Hubbiz Community"
+    },
+    "lang": {
+        "login": "Login",
+        "forgot_password": "Forgot Password? Click Here!",
+        "create_account": "Not have account? Click Here!",
+        "validate_username": "Username is required!",
+        "validade_password": "Password is required!",
+        "placeholder_username": "Username",
+        "placeholder_password": "Password",
+        "snackbar": {
+            "api_error": "Error communicating with API.",
+            "dimiss": "DIMISS",
+            "success": "Login successful!"
+        },
+        "buttons": {
+            "fullscreen": "Fullscreen",
+            "clearcache": "Clear cache",
+            "zoomout": "Zoom -1%",
+            "zoomin": "Zoom +1%",
+            "zoomreset": "Reset zoom",
+            "reload": "Reload",
+            "logout": "Logout"
+        }
+    }
+}

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<!-- https://github.com/pedruhb -->
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<link rel="stylesheet" type="text/css" href="css/buttons.css">
+
+	<link rel="stylesheet" type="text/css" href="vendor/snackbar/snackbar.css">
+
+	<style>
+		.snackborderradius {
+			border-radius: 50px;
+		}
+
+		webview {
+			border: 0;
+			margin: 0;
+			padding: 0;
+			z-index: 1;
+			height: 100%;
+			width: 100%;
+		}
+
+		.container-login100::before {
+			background: -webkit-linear-gradient(bottom, #781635, #6a1212);
+		}
+	</style>
+
+</head>
+
+<body class="body">
+
+	<webview src="https://hubbiz.biz/" httpreferrer="https://hubbiz.biz/" plugins></webview>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-190 p-b-30">
+				<form class="login100-form validate-form loginform">
+					<div class="login100-form-avatar">
+						<img src="images/logo.png">
+					</div>
+					<div class="wrap-input100 validate-input m-b-10 require_username">
+						<input class="input100 inputusername" type="text" name="username">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-user"></i>
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-10 require_password">
+						<input class="input100 inputpassword" type="password" name="password">
+						<input type="hidden" name="csrftoken">
+						<input type="hidden" name="remember_me" value="false">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock"></i>
+						</span>
+					</div>
+					<div class="container-login100-form-btn p-t-10">
+						<button class="login100-form-btn loginbutton"></button>
+					</div>
+					<div class="text-center w-full p-t-25 p-b-230">
+						<a class="txt1 recoverypassword" onclick="openRecoveryPage()" href="#"></a>
+					</div>
+					<div class="text-center w-full">
+						<a class="txt1 createaccount" onclick="openRegisterPage()" href="#"></a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="buttons">
+		<div id="close">
+			<div id="close-button" style="transform: scaleX(-1);"></div>
+		</div>
+		<div id="screen" class="button">
+			<div class="icon screen"></div>
+			<div class="tooltip_app"></div>
+		</div>
+		<div id="cache" class="button">
+			<div class="icon cache"></div>
+			<div class="tooltip_app"></div>
+		</div>
+		<div id="zoomOut" class="button">
+			<div class="icon out"></div>
+			<div class="tooltip_app"></div>
+		</div>
+		<div id="zoomReset" class="button">
+			<div class="icon reset"></div>
+			<div class="tooltip_app"></div>
+		</div>
+		<div id="zoomIn" class="button">
+			<div class="icon in"></div>
+			<div class="tooltip_app"></div>
+		</div>
+		<div id="reload" class="button">
+			<div class="icon reload"></div>
+			<div class="tooltip_app"></div>
+		</div>
+		<div id="logout" class="button">
+			<div class="icon logout"></div>
+			<div class="tooltip_app"></div>
+		</div>
+	</div>
+
+	<script>window.$ = window.jQuery = require('./vendor/jquery/jquery-3.2.1.min.js');</script>
+
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<script src="vendor/select2/select2.min.js"></script>
+
+	<script src="vendor/snackbar/snackbar.min.js"></script>
+
+	<script>
+
+		var configuration;
+		const { ipcRenderer } = require('electron')
+		const webview = document.querySelector("webview");
+
+		webview.addEventListener('console-message', (e) => {
+			console.log('Webview console callback:', e.message)
+		})
+
+		$.fn.serializeObject = function () {
+			var o = {};
+			var a = this.serializeArray();
+			$.each(a, function () {
+				if (o[this.name]) {
+					if (!o[this.name].push) {
+						o[this.name] = [o[this.name]];
+					}
+					o[this.name].push(this.value || '');
+				} else {
+					o[this.name] = this.value || '';
+				}
+			});
+			return o;
+		};
+
+		ipcRenderer.on('setConfig', (e, config) => {
+			configuration = config;
+			document.title = config.hotel.hotelName;
+			Snackbar.show({ text: "Powered by PedroHB#9569 - https://phb.services", pos: 'bottom-center', showAction: false, duration: 3000, customClass: "snackborderradius" });
+			$(".require_username").prop("data-validate", config.lang.validate_username);
+			$(".require_password").prop("data-validate", config.lang.validade_password);
+			$(".recoverypassword").html(config.lang.forgot_password);
+			$(".createaccount").html(`${config.lang.create_account} <i class="fa fa-long-arrow-right"></i>`);
+			$(".inputusername").prop("placeholder", config.lang.placeholder_username);
+			$(".inputpassword").prop("placeholder", config.lang.placeholder_password);
+			$(".loginbutton").html(config.lang.login);
+			$("#screen .tooltip_app").html(`<div class="arrow"></div>${config.lang.buttons.fullscreen}`);
+			$("#cache .tooltip_app").html(`<div class="arrow"></div>${config.lang.buttons.clearcache}`);
+			$("#zoomOut .tooltip_app").html(`<div class="arrow"></div>${config.lang.buttons.zoomout}`);
+			$("#zoomIn .tooltip_app").html(`<div class="arrow"></div>${config.lang.buttons.zoomin}`);
+			$("#zoomReset .tooltip_app").html(`<div class="arrow"></div>${config.lang.buttons.zoomreset}`);
+			$("#reload .tooltip_app").html(`<div class="arrow"></div>${config.lang.buttons.reload}`);
+			$("#logout .tooltip_app").html(`<div class="arrow"></div>${config.lang.buttons.logout}`);
+		});
+
+		function openRegisterPage() {
+			ipcRenderer.send("openExternalUrl", configuration.url.registerUrl);
+		}
+
+		function openRecoveryPage() {
+			ipcRenderer.send("openExternalUrl", configuration.url.recoveryPasswordUrl);
+		}
+
+		$(".loginform").submit(async function (event) {
+			event.preventDefault();
+			$(".loginbutton").prop("disabled", true);
+			var serializedForm = $(".loginform").serializeObject();
+			ipcRenderer.send("saveLoginData", serializedForm);
+			ipcRenderer.send("login", serializedForm.username, serializedForm.password);
+		});
+
+		ipcRenderer.on("loginCallback", (e, cookie, data, status) => {
+			if (data.status == "error" && data.location) {
+				Snackbar.show({ text: configuration.lang.snackbar.success, actionText: configuration.lang.snackbar.dimiss, pos: 'bottom-center', duration: 3000, customClass: "snackborderradius" });
+				webview.executeJavaScript(`
+				$.ajax({
+            		type: "POST",
+            		url: "${configuration.url.hotelUrl}/auth/login/request",
+           			data: ${JSON.stringify($(".loginform").serializeObject())},
+            		dataType: "json"
+        		}).done(function (result) {
+					console.log(JSON.stringify(result));
+					location.href="${configuration.url.clientUrl}";
+				})
+				`);
+			} else {
+				if (data.status == "error" && data.message) {
+					showValidate($(".inputusername"));
+					showValidate($(".inputpassword"));
+					Snackbar.show({ text: data.message, actionText: configuration.lang.snackbar.dimiss, pos: 'bottom-center', duration: 3000, customClass: "snackborderradius" });
+				} else if (status > 201 || status < 200) {
+					Snackbar.show({ text: `${configuration.lang.snackbar.api_error} - ERROR ${status}`, actionText: configuration.lang.snackbar.dimiss, pos: 'bottom-center', duration: 3000, customClass: "snackborderradius" });
+				} else {
+					Snackbar.show({ text: configuration.lang.snackbar.api_error, actionText: configuration.lang.snackbar.dimiss, pos: 'bottom-center', duration: 3000, customClass: "snackborderradius" });
+				}
+				$(".loginbutton").prop("disabled", false);
+			}
+		});
+
+		function showValidate(input) {
+			var thisAlert = $(input).parent();
+			$(thisAlert).addClass('alert-validate');
+		}
+
+		function hideValidate(input) {
+			var thisAlert = $(input).parent();
+			$(thisAlert).removeClass('alert-validate');
+		}
+
+		$(document).ready(() => {
+			$("#reload").hide();
+			$("webview").hide();
+			ipcRenderer.send("getConfig");
+			ipcRenderer.send("getLoginData");
+		});
+
+		ipcRenderer.on("setLoginData", (e, data) => {
+			if (data.username && data.password) {
+				$(".inputusername").val(data.username);
+				$(".inputpassword").val(data.password);
+				$(".loginform").submit();
+			}
+		});
+
+		webview.addEventListener('did-stop-loading', (e) => {
+			if (String(webview.getURL()).includes("client")) {
+				$("webview").show();
+				$("#reload").show();
+				$(".limiter").hide();
+			}
+		});
+
+		let isOpenButtons = true;
+
+		$("#close").on("click", () => {
+			if (!isOpenButtons) {
+				isOpenButtons = true;
+				document.querySelector('.buttons').style.maxWidth = "50px";
+				document.getElementById('close-button').style.transform = "scaleX(-1)";
+			} else {
+				isOpenButtons = false;
+				document.querySelector('.buttons').style.maxWidth = "0px";
+				document.getElementById('close-button').style.transform = "none";
+			}
+		});
+
+		$("#screen").on("click", () => {
+			ipcRenderer.send("fullscreen");
+		});
+
+		$("#cache").on("click", () => {
+			ipcRenderer.send("clearcache")
+			webview.reloadIgnoringCache();
+		});
+
+		$("#zoomOut").on("click", () => {
+			ipcRenderer.send("zoomOut");
+		});
+
+		$("#zoomReset").on("click", () => {
+			ipcRenderer.send("zoomReset");
+		});
+
+		$("#zoomIn").on("click", () => {
+			ipcRenderer.send("zoomIn");
+		});
+
+		$("#reload").on("click", () => {
+			webview.reload();
+		});
+
+		$("#logout").on("click", () => {
+			ipcRenderer.send("logout");
+		});
+
+	</script>
+
+</body>
+
+</html>
