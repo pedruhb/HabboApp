@@ -152,7 +152,7 @@ app.on('before-quit', () => {
 });
 
 app.on('ready', async () => {
-    await globalShortcut.register('CommandOrControl+Alt+D', () => { mainWindow.webContents.openDevTools(); });
+    await globalShortcut.register('CommandOrControl+Alt+D', () => { mainWindow.webContents.openDevTools(); mainWindow.send("openDevTools"); });
     await createWindow();
 });
 

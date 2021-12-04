@@ -122,7 +122,7 @@
 			configuration = config;
 			document.title = config.hotel.hotelName;
 
-			$("body").append(`<webview src="${config.url.hotelUrl}" plugins></webview>`);
+			$("body").append(`<webview src="${config.url.hotelUrl}" style="display:none" plugins></webview>`);
 			$("webview").on('did-stop-loading', (e) => {
 				$("webview").show();
 				$("#reload").show();
@@ -182,13 +182,16 @@
 		});
 
 		$("#reload").on("click", () => {
-			$("webview").reload();
+			$("webview")[0].reload();
 		});
 
 		$("#logout").on("click", () => {
 			ipcRenderer.send("logout");
 		});
 
+		ipcRenderer.on("openDevTools", (e) => {
+			$("webview")[0].openDevTools();
+		});
 	</script>
 
 </body>

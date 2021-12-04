@@ -6,7 +6,7 @@
         "hotelName": "Habbo"
     },
     "url": {
-        "hotelUrl": "https://www.habbo.com.br/"
+        "hotelUrl": "http://127.0.0.1"
     },
     "discord": {
         "inviteUrl": "https://discord.gg/PqwfftuawS",
